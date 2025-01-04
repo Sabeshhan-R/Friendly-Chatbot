@@ -117,19 +117,39 @@ def main():
                 st.stop()
 
     elif choice == "Conversation History":
-        st.title("📜 Conversation History")
-        st.markdown("<h3 style='color: #1565c0;'>Review Past Chats</h3>", unsafe_allow_html=True)
+    st.title("📜 Conversation History")
+    st.markdown("<h3 style='color: #1565c0;'>Review Past Chats</h3>", unsafe_allow_html=True)
+
+    try:
+        # Check if the file exists
         if os.path.exists('chat_log.csv'):
             with open('chat_log.csv', 'r', encoding='utf-8') as csvfile:
                 csv_reader = csv.reader(csvfile)
-                next(csv_reader)  # Skip the header row
-                for row in csv_reader:
-                    st.markdown(f"<p style='color: #1a237e;'><strong>User:</strong> {row[0]}</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p style='color: #1565c0;'><strong>Chatbot:</strong> {row[1]}</p>", unsafe_allow_html=True)
-                    st.caption(f"Timestamp: {row[2]}")
-                    st.markdown("---")
+                try:
+                    # Skip the header row
+                    next(csv_reader)
+                    history_found = False  # Flag to check if there's any data
+                    
+                    # Process each row
+                    for row in csv_reader:
+                        if len(row) == 3:  # Ensure the row has the expected number of columns
+                            st.markdown(f"<p style='color: #1a237e;'><strong>User:</strong> {row[0]}</p>", unsafe_allow_html=True)
+                            st.markdown(f"<p style='color: #1565c0;'><strong>Chatbot:</strong> {row[1]}</p>", unsafe_allow_html=True)
+                            st.caption(f"Timestamp: {row[2]}")
+                            st.markdown("---")
+                            history_found = True
+                        else:
+                            st.error("Corrupted row in chat log. Skipping.")
+                    
+                    if not history_found:
+                        st.info("No conversation data found in the chat log.")
+                except csv.Error as e:
+                    st.error(f"Error reading the CSV file: {e}")
         else:
             st.info("No conversation history available yet.")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
+
 
     elif choice == "About":
         st.title("ℹ️ About This Chatbot")
