@@ -3,4 +3,3 @@ scikit-learn
 joblib
 nltk == 3.6.2
 datetime
-csv
