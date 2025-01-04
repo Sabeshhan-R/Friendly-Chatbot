@@ -4,16 +4,24 @@
         "patterns": [
             "Hi",
             "Hello",
-            "Hey",
-            "How are you",
-            "What's up"
+            "Hey"
         ],
         "responses": [
             "Hi there",
             "Hello",
-            "Hey",
+            "Hey"
+        ]
+    },
+    {
+        "tag": "greet-fine",
+        "patterns": [
+            "How are you",
+            "What's up"
+        ],
+        "responses": [
             "I'm fine, thank you",
-            "Nothing much"
+            "Nothing much",
+            "Great, what about you"
         ]
     },
     {
