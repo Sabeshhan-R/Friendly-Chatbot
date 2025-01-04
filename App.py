@@ -116,7 +116,7 @@ def main():
                 st.success("Thank you for chatting with me. Have a greatday!")
                 st.stop()
 
-    elif choice == "Conversation History":
+    if choice == "Conversation History":
     st.title("📜 Conversation History")
     st.markdown("<h3 style='color: #1565c0;'>Review Past Chats</h3>", unsafe_allow_html=True)
 
